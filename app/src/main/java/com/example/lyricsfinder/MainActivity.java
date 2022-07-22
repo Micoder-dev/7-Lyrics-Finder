@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -64,7 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(MainActivity.this, "onResponse called", Toast.LENGTH_SHORT).show();
 
-                        txtLyrics.setText(response.toString());
+                        try {
+                            txtLyrics.setText(response.getString("lyrics"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
